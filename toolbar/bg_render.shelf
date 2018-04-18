@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- This file contains definitions of shelves, toolbars, and tools.
+ It should not be hand-edited when it is being used by the application.
+ Note, that two definitions of the same element are not allowed in
+ a single file. -->
+
+  <toolshelf name="background_render" label="Background Render">
+    <memberTool name="bg_rensder"/>
+  </toolshelf>
+
+  <tool name="bg_rensder" label="Background Render" icon="PLASMA_App">
+    <script scriptType="python"><![CDATA[import bg_render as bg
+
+bg.bg_render()]]></script>
+  </tool>
+</shelfDocument>
