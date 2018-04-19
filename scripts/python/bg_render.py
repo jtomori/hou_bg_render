@@ -1,5 +1,7 @@
 import hou
 import subprocess
+import platform
+
 
 def getRenderNode(node):
     render_nodes = ("rop_geometry", "geometry", "Redshift_ROP", "ifd", "arnold", "opengl", "baketexture::3.0", "rib", "ris", "ribarchive", "wren", "ifdarchive", "render", "rop_alembic", "brickmap", "merge", "channel", "comp", "dsmmerge", "fetch", "wedge", "subnet", "shell", "null", "dop", "alembic", "filmboxfbx", "agent", "mdd", "switch")
@@ -42,9 +44,11 @@ def bg_render(kwargs):
 
         hscript_cmd = "render -Va{0} {1}; quit".format(frame_by_frame, rop_path)
         intro = "Rendering {0} in {1}".format(top_node_path, file_name)
-        finish = "\\n\\nRendering was finished, press [enter] to close terminal."
+        finish = "Rendering was finished, press [enter] to close terminal."
 
         bash_render_cmd = 'hbatch -c \\"{0}\\" {1}'.format(hscript_cmd, file_path)
         
-        p = subprocess.Popen(["x-terminal-emulator", "-t", intro, "-e", 'bash -c "printf \\"{0}\\" && {1} && printf \\"{2}\\" && read"'.format(intro + "\\n\\n\\n", bash_render_cmd, finish) ], stdout=subprocess.PIPE)
-        output = p.communicate()[0]
+        if platform.system() == "Linux":
+            p = subprocess.Popen(["x-terminal-emulator", "-t", intro, "-e", 'bash -c "printf \\"{0}\\" && {1} && printf \\"{2}\\" && read"'.format(intro + "\\n\\n\\n", bash_render_cmd, "\\n\\n" + finish) ], stdout=subprocess.PIPE)
+        elif platform.system() == "Windows":
+            p = subprocess.Popen('start cmd /c "title {0} &&^echo {0} &&^echo. &&^echo. &&^{1} &&^pause "'.format(intro, bash_render_cmd.replace("\\","")), stdout=subprocess.PIPE, shell=True)
