@@ -12,7 +12,7 @@ Installation
 2. Add this repository into your *HOUDINI_PATH* environment variable. 
     * For example by adding this line into your *houdini.env* file:
     ```
-    HOUDINI_PATH = &:/path/to/this/folder
+    HOUDINI_PATH = &;/path/to/this/folder
     ```
     * If you have set your *HOUDINI_PATH* variable already, then use followig line.
     ```
