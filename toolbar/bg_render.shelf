@@ -10,8 +10,20 @@
   </toolshelf>
 
   <tool name="bg_rensder" label="Background Render" icon="PLASMA_App">
+    <helpText><![CDATA[= Background Render =
+
+"""Render in background, ALT-Click for frame-by-frame mode"""
+
+Use this shelf tool to run a background render of a renderable node - let it be a fetch, merge or anything that can render.
+You can select multiple nodes.
+
+ALT-Click on this tool for frame-by-frame rendering mode. Default is node-by-node
+]]></helpText>
     <script scriptType="python"><![CDATA[import bg_render as bg
 
-bg.bg_render()]]></script>
+bg.bg_render(kwargs)]]></script>
+    <keywordList>
+      <keyword>background render</keyword>
+    </keywordList>
   </tool>
 </shelfDocument>
