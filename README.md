@@ -1,6 +1,7 @@
 Houdini Background Render
 =========================
-*Render any renderable node in background.*
+*Render any renderable node in background.*<br>
+*Works on Linux<br>
 ![Hou network](./img/node_tree.jpg)
 
 Installation
