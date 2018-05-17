@@ -3,23 +3,34 @@ import subprocess
 import platform
 
 
-def getRenderNode(node):
-    render_nodes = ("rop_geometry", "geometry", "Redshift_ROP", "ifd", "arnold", "opengl", "baketexture::3.0", "rib", "ris", "ribarchive", "wren", "ifdarchive", "render", "rop_alembic", "brickmap", "merge", "channel", "comp", "dsmmerge", "fetch", "wedge", "subnet", "shell", "null", "dop", "alembic", "filmboxfbx", "agent", "mdd", "switch")
+def getRenderNodes(node):
+    """
+    returns renderable nodes found in children of specified node
+    """
+    render_nodes = ("rop_geometry", "geometry", "Redshift_ROP", "ifd", "arnold", "opengl", "baketexture::3.0", "rib", "ris", "ribarchive", "wren", "ifdarchive", "render", "rop_alembic", "brickmap", "merge", "channel", "comp", "dsmmerge", "fetch", "wedge", "shell", "null", "dop", "alembic", "filmboxfbx", "agent", "mdd")
 
     node_type_name = node.type().name()
     node_children = node.allSubChildren()
 
+    node_list = []
+
     if node_type_name in render_nodes:
-        return node
-    elif len(node_children) is not 0:
+        node_list.append(node)
+        return node_list
+    elif len(node_children) > 0:
         for n in node_children:
             if n.type().name() in render_nodes:
-                return n
+                node_list.append(n)
     else:
-        print("No render nodes were found.\n")
+        print("No render node was found.\n")
         return None
 
+    return node_list
+
 def bg_render(kwargs):
+    """
+    strarts a separate houdini process rendering selected node, if multiple nodes were found, then asks user to choose one
+    """
     nodes = hou.selectedNodes()
 
     if not bool( nodes ):
@@ -31,9 +42,20 @@ def bg_render(kwargs):
 
     for node in nodes:
         top_node = node
-        node = getRenderNode(node)
-        if node == None:
+
+        node_list = getRenderNodes(node)
+        if len(node_list) == 0:
             return
+        elif len(node_list) == 1:
+            node = node_list[0]
+        else:
+            node_names = [n.name() for n in node_list]
+            selected = hou.ui.selectFromList(choices=node_names, message="Multiple ROPs found, choose one to be rendered", title="Choose ROP")
+            if len(selected) == 0:
+                print("No ROP was selected.")
+                return
+            else:
+                node = node_list[ selected[0] ]
 
         rop_path = node.path()
         top_node_path = top_node.path()
