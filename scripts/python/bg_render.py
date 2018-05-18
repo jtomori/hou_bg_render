@@ -2,7 +2,6 @@ import hou
 import subprocess
 import platform
 
-
 def getRenderNodes(node):
     """
     returns renderable nodes found in children of specified node
@@ -29,7 +28,7 @@ def getRenderNodes(node):
 
 def bg_render(kwargs):
     """
-    strarts a separate houdini process rendering selected node, if multiple nodes were found, then asks user to choose one
+    starts a separate houdini process rendering selected node, if multiple nodes were found, then asks user to choose one
     """
     nodes = hou.selectedNodes()
 
