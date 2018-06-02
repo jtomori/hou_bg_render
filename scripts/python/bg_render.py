@@ -17,9 +17,6 @@ def getRenderNodes(node):
         for n in node_children:
             if isinstance(n, hou.RopNode):
                 node_list.append(n)
-    else:
-        print("No render node was found.\n")
-        return None
 
     if len(node_list) > 0:
         return node_list
