@@ -8,7 +8,6 @@ Installation
 ------------
 1. [Download](https://github.com/jtomori/hou_bg_render/archive/master.zip) or clone this repository.
 
-
 2. Add this repository into your *HOUDINI_PATH* environment variable. 
     * For example by adding this line into your *houdini.env* file:
     ```
@@ -28,3 +27,7 @@ Usage
 * ALT-Click for *frame-by-frame* mode, default mode is *node-by-node*
 * Check the new-opened terminal window for progress.
 * Continue working on your scene :)
+
+Contributing
+------------
+Feel free to contribute to this project by creating pull requests or by [buying me a beer :)](https://www.paypal.me/jtomori)
