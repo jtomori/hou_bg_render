@@ -66,7 +66,7 @@ def bg_render(kwargs):
         intro = "Rendering {0} in {1}".format(rop_path, file_name)
         finish = "Rendering was finished, press [enter] to close terminal."
 
-        bash_render_cmd = 'hbatch -c \\"{0}\\" {1}'.format(hscript_cmd, file_path)
+        bash_render_cmd = 'hbatch -c \\"{0}\\" "{1}"'.format(hscript_cmd, file_path)
         
         env = os.environ
         env["HOUDINI_PATH"] = ""
